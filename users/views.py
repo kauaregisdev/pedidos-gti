@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.exceptions import MethodNotAllowed, PermissionDenied
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
-from .serializers import UserAdminSerializer, UserSerializer, UserCreateSerializer
+from .serializers import UserAdminSerializer, UserSerializer, UserCreateSerializer, UserUpdateSerializer
 
 User = get_user_model()
 
@@ -27,6 +27,8 @@ class UserViewSet(ModelViewSet):
             return UserCreateSerializer
         if self.action in ['list', 'retrieve']:
             return UserAdminSerializer
+        if self.action == 'partial_update':
+            return UserUpdateSerializer
         return UserSerializer
 
     def get_permissions(self):
@@ -64,10 +66,10 @@ class UserViewSet(ModelViewSet):
             return Response(serializer.data)
 
         if request.method == 'PATCH':
-            serializer = UserSerializer(request.user, data=request.data, partial=True)
+            serializer = UserUpdateSerializer(request.user, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response(serializer.data)
+            return Response(UserSerializer(request.user).data)
 
         if request.method == 'DELETE':
             self._check_orders(request.user)

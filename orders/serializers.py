@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ['id', 'product_name', 'quantity', 'unit_price', 'subtotal']
 
     def get_subtotal(self, obj):
-        return obj.subtotal()
+        return str(obj.subtotal())
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
