@@ -49,8 +49,8 @@ class OrderItem(models.Model):
         related_name='order_items',
         verbose_name='Produto'
     )
-    quantity = models.PositiveIntegerField(default=1)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField('Quantidade', default=1)
+    unit_price = models.DecimalField('Preço unitário', max_digits=10, decimal_places=2)
 
     def subtotal(self):
         if self.unit_price is None:
