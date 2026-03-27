@@ -24,12 +24,12 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(unique=True)
-    name = models.CharField(max_length=150)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField("ID", primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField("Email", unique=True)
+    name = models.CharField("Nome completo", max_length=150)
+    is_active = models.BooleanField("Ativo?", default=True)
+    is_staff = models.BooleanField("Staff?", default=False)
+    created_at = models.DateTimeField("Data de criação", auto_now_add=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
@@ -38,3 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
