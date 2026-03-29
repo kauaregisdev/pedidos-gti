@@ -20,7 +20,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'items', 'total', 'status', 'created_at']
+        fields = ['id', 'user', 'items', 'total', 'status', 'created_at', 'updated_at']
 
 class OrderItemCreateSerializer(serializers.Serializer):
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
@@ -61,4 +61,4 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 class OrderStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id', 'status']
+        fields = ['id', 'status', 'created_at', 'updated_at']
