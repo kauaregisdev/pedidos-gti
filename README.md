@@ -146,7 +146,7 @@ POST /api/token/
 | Método | Rota | Permissão | Descrição |
 |---|---|---|---|
 | `GET` | `/api/news/` | Público | Lista notícias com paginação |
-| `GET` | `/api/news/<id>/` | Público | Detalha uma notícia |
+| `GET` | `/api/news/<uuid>/` | Público | Detalha uma notícia |
 
 ---
 
